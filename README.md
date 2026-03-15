@@ -2,7 +2,6 @@
 
 > Проект «Управление временем и браузером» — закрепление тем: setTimeout, setInterval, BOM, localStorage, диалоговые окна.
 
-🔗 [Посмотреть демо](https://igorao2802-dev.github.io/js-practice-05/) _(опционально)_  
 📁 [Исходный код](https://github.com/igorao2802-dev/js-practice-05)
 
 ---
@@ -350,5 +349,5 @@ location.href = "https://google.com";
 
 ---
 
-_Выполнил: [JcОдчий И.А.]_  
+_Выполнил: [Оcадчий И.А.]_  
 _Дата: 16 Март 2026_

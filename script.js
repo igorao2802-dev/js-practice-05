@@ -1,5 +1,4 @@
 "use strict";
-
 /* =====================================================
 ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ВАЛИДАЦИИ
 ===================================================== */
@@ -282,16 +281,34 @@ const pomDisplay = document.getElementById("pomodoro-display");
 const pomStart = document.getElementById("pomodoro-start");
 const pomPause = document.getElementById("pomodoro-pause");
 const pomReset = document.getElementById("pomodoro-reset");
+const pomCount = document.getElementById("pomodoro-count");
+const pomShowHistory = document.getElementById("pomodoro-show-history");
+const pomClearHistory = document.getElementById("pomodoro-clear-history");
+const pomHistory = document.getElementById("pomodoro-history");
 
-let pomSeconds = 1500;
+let pomSecondsStartValue = 1500; // 25 минут
+let pomSeconds = pomSecondsStartValue;
 let pomInterval = null;
+let completedSessions = 0;
+let isTimerCompleted = false;
 
 function updatePomodoro() {
   pomDisplay.textContent = formatMMSS(pomSeconds);
 }
 
+function updateSessionCount() {
+  pomCount.textContent = completedSessions;
+}
+
 function startPomodoro() {
   if (pomInterval !== null) return;
+
+  // Если таймер завершён — сбрасываем время на 25 минут для нового запуска
+  if (isTimerCompleted) {
+    pomSeconds = pomSecondsStartValue;
+    isTimerCompleted = false;
+    updatePomodoro();
+  }
 
   // Использую setInterval, потому что нужно уменьшать таймер каждую секунду многократно
   // setInterval выполняет функцию через равные промежутки времени (1000 мс)
@@ -301,8 +318,17 @@ function startPomodoro() {
 
     if (pomSeconds <= 0) {
       // Использую clearInterval, потому что таймер достиг 0 и должен остановиться
+      // clearInterval отменяет выполнение функции, запущенной через setInterval
       clearInterval(pomInterval);
       pomInterval = null;
+      isTimerCompleted = true;
+
+      // Увеличиваем счётчик завершённых сессий
+      completedSessions++;
+      updateSessionCount();
+
+      // Сохраняем сессию в историю (localStorage)
+      saveSessionToHistory();
 
       // Вывод через DOM, а не alert (по требованию задания)
       pomDisplay.textContent = "⏰ Время на перерыв!";
@@ -312,21 +338,62 @@ function startPomodoro() {
 
 function pausePomodoro() {
   // Использую clearInterval, потому что нужно остановить повторяющийся таймер
+  // clearInterval отменяет выполнение функции, запущенной через setInterval
   clearInterval(pomInterval);
   pomInterval = null;
 }
 
 function resetPomodoro() {
   // Использую clearInterval, потому что нужно остановить таймер перед сбросом
+  // clearInterval отменяет выполнение функции, запущенной через setInterval
   clearInterval(pomInterval);
   pomInterval = null;
-  pomSeconds = 1500;
+  pomSeconds = pomSecondsStartValue;
+  isTimerCompleted = false;
   updatePomodoro();
 }
 
+// Сохранение истории сессий в localStorage
+function saveSessionToHistory() {
+  const history = JSON.parse(localStorage.getItem("pomodoroHistory") || "[]");
+  const now = new Date();
+  history.push({
+    date: now.toLocaleDateString("ru-RU"),
+    time: now.toLocaleTimeString("ru-RU"),
+    duration: pomSecondsStartValue / 60,
+  });
+  localStorage.setItem("pomodoroHistory", JSON.stringify(history));
+}
+
+// Показать историю
+pomShowHistory.addEventListener("click", () => {
+  const history = JSON.parse(localStorage.getItem("pomodoroHistory") || "[]");
+  if (history.length === 0) {
+    pomHistory.textContent = "История пуста";
+  } else {
+    const historyText = history
+      .map((s) => `${s.date} ${s.time} — ${s.duration} мин`)
+      .join(", ");
+    pomHistory.textContent = historyText;
+  }
+});
+
+// Очистить историю
+pomClearHistory.addEventListener("click", () => {
+  localStorage.removeItem("pomodoroHistory");
+  completedSessions = 0; // СБРОС СЧЁТЧИКА СЕССИЙ
+  updateSessionCount(); // ОБНОВЛЕНИЕ ОТОБРАЖЕНИЯ
+  pomHistory.textContent = "История очищена";
+});
+
+// Обработчики кнопок
 pomStart.addEventListener("click", startPomodoro);
 pomPause.addEventListener("click", pausePomodoro);
 pomReset.addEventListener("click", resetPomodoro);
+
+// Инициализация при загрузке
+updatePomodoro();
+updateSessionCount();
 
 /* =====================================================
 7 ДИАЛОГОВЫЕ ОКНА
@@ -407,4 +474,5 @@ window.addEventListener("load", () => {
 
   // Инициализация Pomodoro
   updatePomodoro();
+  updateSessionCount();
 });
