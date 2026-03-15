@@ -95,6 +95,7 @@ const cdDisplay = document.getElementById("countdown-display");
 
 let cdSeconds = 0;
 let cdInterval = null;
+const MAX_COUNTDOWN_SECONDS = 259200; // 3 дня = 72 часа = 259200 секунд
 
 function startCountdown() {
   const value = cdInput.value;
@@ -110,6 +111,12 @@ function startCountdown() {
   // Дополнительная проверка на isFinite для защиты от Infinity
   if (!Number.isFinite(cdSeconds)) {
     cdDisplay.textContent = "Ошибка: значение не может быть Infinity";
+    return;
+  }
+
+  // НОВАЯ ПРОВЕРКА: Максимальное допустимое значение (3 дня)
+  if (cdSeconds > MAX_COUNTDOWN_SECONDS) {
+    cdDisplay.textContent = `Ошибка: максимальное время — 259200 секунд (3 дня)`;
     return;
   }
 
@@ -430,7 +437,7 @@ ONLINE / OFFLINE (ADVANCED)
 const onlineStatus = document.getElementById("online-status");
 
 window.addEventListener("online", () => {
-  // Вывод через DOM, а не alert (по требованию задания)
+  // Вывод через DOM, а не alert
   if (onlineStatus) {
     onlineStatus.textContent = "🟢 Интернет соединение восстановлено";
     onlineStatus.className = "status-message success";
@@ -443,7 +450,7 @@ window.addEventListener("online", () => {
 });
 
 window.addEventListener("offline", () => {
-  // Вывод через DOM, а не alert (по требованию задания)
+  // Вывод через DOM, а не alert
   if (onlineStatus) {
     onlineStatus.textContent = "🔴 Вы офлайн";
     onlineStatus.className = "status-message error";
