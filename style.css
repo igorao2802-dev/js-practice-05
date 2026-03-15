@@ -1,60 +1,93 @@
-
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background: #f9f9f9;
+  background: #f4f6f8;
   color: #222;
 }
 
-h1, h2 {
-  margin-bottom: 10px;
+h1 {
+  margin-bottom: 20px;
 }
 
 .card {
   background: white;
-  padding: 15px 20px;
+  padding: 20px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
 
-.controls, .buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 10px;
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .display {
+  font-size: 1.6rem;
   font-family: monospace;
-  font-size: 1.5rem;
-  min-width: 120px;
+
+  margin: 10px 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin: 10px 0;
 }
 
 button {
   padding: 8px 14px;
+
   border: none;
-  background-color: #3b82f6;
-  color: white;
   border-radius: 6px;
+
+  background: #3b82f6;
+  color: white;
+
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background-color: #2563eb;
+  background: #2563eb;
 }
 
-input[type="number"] {
-  width: 80px;
-  padding: 6px 8px;
+textarea {
+  width: 100%;
+  padding: 10px;
+
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-size: 1rem;
+
+  resize: vertical;
 }
 
 .output {
   margin-top: 10px;
-  font-weight: bold;
   font-family: monospace;
+}
+
+/* ======================= */
+/* УВЕДОМЛЕНИЕ */
+/* ======================= */
+
+.notification {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  background: #16a34a;
+  color: white;
+
+  padding: 15px 20px;
+
+  border-radius: 8px;
+
+  display: none;
+
+  gap: 10px;
+}
+
+.notification button {
+  background: white;
+  color: #16a34a;
 }

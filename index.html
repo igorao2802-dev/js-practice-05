@@ -1,51 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Практическая работа №5 — Starter Kit</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <h1>Практическая работа №5: BOM, таймеры и диалоги</h1>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Практическая работа №5 — BOM и таймеры</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <main>
-    <section class="card" id="stopwatch-section">
-      <h2>Задание 1 — Секундомер</h2>
-      <div class="controls">
-        <span class="display" id="stopwatch-display">00:00:00</span>
+  <body>
+    <header>
+      <h1>Практическая работа №5 — BOM, таймеры и диалоги</h1>
+    </header>
+
+    <main>
+      <!-- ============================ -->
+      <!-- СЕКУНДОМЕР -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Секундомер</h2>
+
+        <div class="display" id="stopwatch-display">00:00:00</div>
+
         <div class="buttons">
           <button id="sw-start">Старт</button>
           <button id="sw-stop">Стоп</button>
           <button id="sw-reset">Сброс</button>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="card" id="countdown-section">
-      <h2>Задание 2 — Обратный отсчёт</h2>
-      <label for="countdown-seconds">Секунд:</label>
-      <input id="countdown-seconds" type="number" min="1" max="3600" value="10" />
-      <div class="buttons">
-        <button id="cd-start">Старт</button>
-        <button id="cd-stop">Стоп</button>
-      </div>
-      <div class="output" id="countdown-display">—</div>
-    </section>
+      <!-- ============================ -->
+      <!-- ОБРАТНЫЙ ОТСЧЁТ -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Обратный отсчёт</h2>
 
-    <section class="card" id="dialogs-section">
-      <h2>Диалоговые окна</h2>
-      <div class="buttons">
-        <button id="btn-alert">alert()</button>
-        <button id="btn-confirm">confirm()</button>
-        <button id="btn-prompt">prompt()</button>
-      </div>
-      <div id="dialog-result">Результат: —</div>
-    </section>
-  </main>
+        <label>
+          Секунд:
+          <input
+            id="countdown-seconds"
+            type="number"
+            min="1"
+            max="3600"
+            placeholder="60"
+          />
+        </label>
 
-  <script src="script.js"></script>
-</body>
+        <div class="buttons">
+          <button id="cd-start">Запустить</button>
+          <button id="cd-stop">Остановить</button>
+          <button id="cd-reset">Сброс</button>
+        </div>
+
+        <div class="display" id="countdown-display">—</div>
+      </section>
+
+      <!-- ============================ -->
+      <!-- УВЕДОМЛЕНИЯ -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Уведомления</h2>
+
+        <button id="notification-show">Показать уведомление через 3 сек</button>
+      </section>
+
+      <!-- блок уведомления -->
+      <div id="notification" class="notification">
+        <span> Операция выполнена успешно! </span>
+
+        <button id="notification-close">Закрыть</button>
+      </div>
+
+      <!-- ============================ -->
+      <!-- ИНФОРМАЦИЯ О БРАУЗЕРЕ -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Информация о браузере</h2>
+
+        <div class="buttons">
+          <button id="browser-info-btn">Показать информацию</button>
+
+          <button id="browser-info-refresh">Обновить информацию</button>
+        </div>
+
+        <div id="browser-info" class="output">
+          Нажмите кнопку, чтобы показать информацию
+        </div>
+      </section>
+
+      <!-- ============================ -->
+      <!-- АВТОСОХРАНЕНИЕ -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Автосохранение текста</h2>
+
+        <textarea
+          id="autosave-textarea"
+          rows="6"
+          placeholder="Введите текст..."
+        ></textarea>
+
+        <div class="buttons">
+          <button id="autosave-toggle">Остановить автосохранение</button>
+
+          <button id="autosave-clear">Очистить черновик</button>
+        </div>
+
+        <div id="autosave-indicator" class="output">Нет сохранений</div>
+      </section>
+
+      <!-- ============================ -->
+      <!-- POMODORO -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Pomodoro Таймер</h2>
+
+        <div class="display" id="pomodoro-display">25:00</div>
+
+        <div class="buttons">
+          <button id="pomodoro-start">Старт</button>
+
+          <button id="pomodoro-pause">Пауза</button>
+
+          <button id="pomodoro-reset">Сброс</button>
+        </div>
+
+        <p>
+          Завершённых сессий:
+          <strong id="pomodoro-count">0</strong>
+        </p>
+
+        <div class="buttons">
+          <button id="pomodoro-show-history">Показать историю</button>
+
+          <button id="pomodoro-clear-history">Очистить историю</button>
+        </div>
+
+        <div id="pomodoro-history" class="output"></div>
+      </section>
+
+      <!-- ============================ -->
+      <!-- ДИАЛОГОВЫЕ ОКНА -->
+      <!-- ============================ -->
+      <section class="card">
+        <h2>Диалоговые окна</h2>
+
+        <div class="buttons">
+          <button id="btn-alert">alert()</button>
+
+          <button id="btn-confirm">confirm()</button>
+
+          <button id="btn-prompt">prompt()</button>
+        </div>
+
+        <div id="dialog-result" class="output">Результат: —</div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
