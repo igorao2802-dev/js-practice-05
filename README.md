@@ -1,4 +1,3 @@
-````markdown
 # ⏱️ Практическая работа №5: BOM, Таймеры и Диалоговые Окна
 
 > Проект «Управление временем и браузером» — закрепление тем: setTimeout, setInterval, BOM, localStorage, диалоговые окна.
@@ -49,7 +48,6 @@ swInterval = setInterval(() => {
   updateStopwatch();
 }, 1000);
 ```
-````
 
 ---
 
