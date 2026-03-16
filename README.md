@@ -338,14 +338,33 @@ location.href = "https://google.com";
 
 ## 📸 Скриншоты работы
 
-<!--
+#### Секундомер в работе
+
 ![Секундомер](screenshots/stopwatch.png)
+
+#### Обратный отсчёт: начальное состояние и момент «Время вышло!»
+
 ![Обратный отсчёт](screenshots/countdown.png)
+
+#### Уведомление, показанное через 3 секунды
+
 ![Уведомления](screenshots/notification.png)
+
+#### Блок с информацией о браузере (все 10 пунктов)
+
 ![Инфо о браузере](screenshots/browser-info.png)
+
+#### Автосохранение формы: индикатор последнего сохранения
+
 ![Автосохранение](screenshots/autosave.png)
+
+#### Таймер Pomodoro: отображение времени и счётчик сессий
+
 ![Pomodoro](screenshots/pomodoro.png)
--->
+
+#### Консоль с выводом данных из localStorage
+
+![LocalStorage](screenshots/localstorage.png)
 
 ---
 

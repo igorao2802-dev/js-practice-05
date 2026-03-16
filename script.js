@@ -293,7 +293,7 @@ const pomShowHistory = document.getElementById("pomodoro-show-history");
 const pomClearHistory = document.getElementById("pomodoro-clear-history");
 const pomHistory = document.getElementById("pomodoro-history");
 
-let pomSecondsStartValue = 1500; // 25 минут
+let pomSecondsStartValue = 3; // 25 минут
 let pomSeconds = pomSecondsStartValue;
 let pomInterval = null;
 let completedSessions = 0;
